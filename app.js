@@ -7,6 +7,11 @@ const bodyParser = require('body-parser');
 
 
 
+
+//routes
+
+var api_routes = require('./src/routes/index')
+
 var app = express();
 
 
@@ -21,6 +26,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//routers mounting point
+app.use('/',api_routes);
 
 
 // catch 404 and forward to error handler
