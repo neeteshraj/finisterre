@@ -10,6 +10,6 @@ mongoose.connect(
     `mongodb+srv://${username}:${password}@cluster0.a3cez.mongodb.net/${dbname}?retryWrites=true&w=majority`, 
     { 
         useNewUrlParser: true, 
-        useUnifiedTopology: true 
-    }
+        useUnifiedTopology: true
+    }   
 ).then(() => console.log('Connected to MongoDB...'));
