@@ -10,6 +10,7 @@ const {
 
 const {
     validateSignUp,
+    validateSignIn,
     userValidation
 }= require('../middlewares/validator/signUpValidator');
 
@@ -17,7 +18,7 @@ const {
 
 
 
-router.post('/signin', signIn);
+router.post('/signin', validateSignIn, userValidation, signIn);
 router.post('/signup',validateSignUp, userValidation,signUp);
 
 
