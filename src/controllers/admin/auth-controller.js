@@ -52,7 +52,7 @@ const signIn = function(req, res, next) {
             };
             if(user){
                 if(user.authenticate(req.body.password) && user.role === 'admin'){
-                    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET,{
+                    const token = jwt.sign({_id: user._id, role: user.role}, process.env.JWT_SECRET,{
                         expiresIn: process.env.JWT_SECRET_EXPIRATION
                     });
                     const {

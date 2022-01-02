@@ -4,8 +4,7 @@ const router = express.Router();
 const {
     signIn,
     signUp,
-    profile,
-    requireSignIn
+    profile
 } = require('../controllers/auth-controller');
 
 const {
