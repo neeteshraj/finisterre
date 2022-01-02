@@ -4,15 +4,18 @@ const router = express.Router();
 
 const {
     signIn,
-    signUp
-} = require('../controllers/user-controller');
+    signUp,
+    profile,
+    requireSignIn
+} = require('../../controllers/admin/auth-controller');
 
 
 
 
 
 router.post('/signin', signIn);
-router.post('/signout', signUp);
+router.post('/signup', signUp);
+
 
 
 
