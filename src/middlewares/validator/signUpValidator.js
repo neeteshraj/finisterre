@@ -8,7 +8,6 @@ exports.validateSignUp=[
         .isEmail()
         .withMessage('Email is required'),
     check('password')
-        .trim()
         .not()
         .isEmpty()
         .withMessage('Password is required')
