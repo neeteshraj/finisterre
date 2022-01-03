@@ -50,7 +50,7 @@ const signIn = function(req, res, next) {
             if(err) return res.status(400).json({err});
             if(user){
                 if(user.authenticate(req.body.password) && user.role === 'user'){
-                    const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET,{
+                    const token = jwt.sign({_id: user._id, role: user.role}, process.env.JWT_SECRET,{
                         expiresIn: process.env.JWT_SECRET_EXPIRATION
                     });
                     const {
@@ -94,18 +94,9 @@ const profile = function(req, res, next) {
 }
 
 
-//this is middleware, it needs to placed in middlewares directory
-const requireSignIn = function(req, res, next) {
-    const token = req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = user;
-    next();
-}
-
 
 module.exports = {
     signIn,
     signUp,
-    requireSignIn,
     profile
 }

@@ -5,16 +5,21 @@ const router = express.Router();
 const {
     signIn,
     signUp,
-    profile,
-    requireSignIn
+    profile
 } = require('../../controllers/admin/auth-controller');
 
+const {
+    validateSignUp,
+    validateSignIn,
+    userValidation
+}= require('../../middlewares/validator/signUpValidator');
 
 
 
 
-router.post('/signin', signIn);
-router.post('/signup', signUp);
+
+router.post('/signin',validateSignIn,userValidation, signIn);
+router.post('/signup',validateSignUp, userValidation, signUp);
 
 
 
