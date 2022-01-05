@@ -33,10 +33,10 @@ const createCategory = function (req, res) {
         createdBy: req.user._id
     };
 
-    if (req.file) {
-        categoryObj.categoryImage = "/public/" + req.file.filename;
+    if (req.files) {
+        categoryObj.categoryImage = "/public/" + req.files.filename;
     };
-    
+
     if (req.body.parentId) {
         categoryObj.parentId = req.body.parentId;
     }
