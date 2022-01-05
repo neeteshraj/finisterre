@@ -6,18 +6,18 @@ const {
     requireSignIn, 
     userMiddleware 
 } = require('../middlewares/requireSignIn/requireSignIn');
-// const{
-//     getBucket,
-//     updateBucket,
-//     addProductToBucket
-// } = require('../controllers/bucket-controller');
 const{
-    addItemToCart
-}= require('../controllers/cart-controller');
+    getBucket,
+    updateBucket,
+    addProductToBucket
+} = require('../controllers/bucket-controller');
+// const{
+//     addItemToCart
+// }= require('../controllers/cart-controller');
 
 
 
-router.post('/add-to-cart',requireSignIn,userMiddleware, addItemToCart);
+router.post('/add-to-cart',requireSignIn,userMiddleware, addProductToBucket);
 
 
 module.exports = router;
