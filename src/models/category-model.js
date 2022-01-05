@@ -14,10 +14,9 @@ const categorySchema = new mongoose.Schema({
     parentId:{
         type: mongoose.Schema.Types.ObjectId
     },
-    ancestors:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
-    }]
+    categoryImages:{
+        type: String
+    }
 },{timestamps: true});
 
 
