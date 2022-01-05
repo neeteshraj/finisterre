@@ -12,8 +12,12 @@ const categorySchema = new mongoose.Schema({
         unique: true
     },
     parentId:{
-        type: String
-    }
+        type: mongoose.Schema.Types.ObjectId
+    },
+    ancestors:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+    }]
 },{timestamps: true});
 
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const ProductModel = require('../models/product-model');
+const Product = require('../models/product-model');
 const slugify = require('slugify');
 const shortid = require('shortid');
 
@@ -22,7 +22,7 @@ const createProduct= (req, res) => {
         });
     }
 
-    const product = new ProductModel({
+    const product = new Product({
         name: name,
         slug: slugify(name),
         description: description,

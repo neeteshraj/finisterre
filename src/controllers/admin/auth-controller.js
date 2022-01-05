@@ -91,23 +91,8 @@ const signIn = function(req, res, next) {
 }
 
 
-const profile = function(req, res, next) {
-    console.log(req.user);
-}
-
-
-//this is middleware, it needs to placed in middlewares directory
-const requireSignIn = function(req, res, next) {
-    const token = req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = user;
-    next();
-}
-
 
 module.exports = {
     signIn,
-    signUp,
-    requireSignIn,
-    profile
+    signUp
 }

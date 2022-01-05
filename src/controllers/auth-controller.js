@@ -88,15 +88,7 @@ const signIn = function(req, res, next) {
         })
 }
 
-//this is dashboard, displayed when login is sucessfull
-const profile = function(req, res, next) {
-    console.log(req.user);
-}
-
-
-
 module.exports = {
     signIn,
-    signUp,
-    profile
+    signUp
 }
