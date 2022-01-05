@@ -1,4 +1,4 @@
-const {Cart} = require('../models/cart-model');
+const Cart = require('../models/cart-model');
 
 const addItemToCart = function(req, res, next) {
     Cart.find({ user: req.user._id })

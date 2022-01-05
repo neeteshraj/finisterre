@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const{
-    addItemToCart
-}= require('../controllers/cart-controller');
 
 const { 
     requireSignIn, 
@@ -14,9 +11,9 @@ const {
 //     updateBucket,
 //     addProductToBucket
 // } = require('../controllers/bucket-controller');
-// const{
-//     addItemToCart
-// }= require('../controllers/cart1-controller');
+const{
+    addItemToCart
+}= require('../controllers/cart-controller');
 
 
 
