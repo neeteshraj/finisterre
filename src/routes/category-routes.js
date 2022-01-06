@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const upload = require('../middlewares/uploader/productImageUploader/uploader');
+const upload = require('../middlewares/uploader/categoryImageUploader/uploader');
 const{
     createCategory,
     getCategory
@@ -14,7 +14,7 @@ const {
 
 
 
-router.post('/createcategory',requireSignIn,adminMiddleware,upload.array('productPictures'),createCategory);
+router.post('/createcategory',requireSignIn,adminMiddleware,upload.single('categoryImages'),createCategory);
 router.get('/getcategory',getCategory);
 
 

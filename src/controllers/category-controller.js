@@ -33,9 +33,13 @@ const createCategory = function (req, res) {
         createdBy: req.user._id
     };
 
-    if (req.files) {
-        categoryObj.categoryImage = "/public/" + req.files.filename;
-    };
+    let categoryImages = [];
+
+    if(req.files) {
+        categoryImages = req.file.map(file=>{
+            return { img: file.filename};
+        });
+    }
 
     if (req.body.parentId) {
         categoryObj.parentId = req.body.parentId;
