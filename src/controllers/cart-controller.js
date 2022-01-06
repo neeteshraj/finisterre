@@ -13,11 +13,12 @@ const addItemToCart = function (req, res, next) {
                 const { product, quantity } = req.body.cartItems;
                 const item = cart.cartItems.find(c => c.product == product);
                 if (item) {
-                    item.quantity = quantity
+                    item.quantity = quantity+item.quantity;
                     cart.cartItems.map(c => {
                         if (c.product == item.product) { return { ...c, ...item } }
                         return item
                     })
+                    
                     await cart.save()
                     return res.status(201).json({ message: "item updated to cart", })
                 } else {
@@ -25,44 +26,6 @@ const addItemToCart = function (req, res, next) {
                     await cart.save()
                     return res.status(201).json({ message: "new item added to cart", })
                 }
-
-                let condition, update;
-                // if (item) {
-                //     condition = { "user": req.user._id, "cartItems.product": product };
-                //     update = {
-                //         "$set": {
-                //             "cartItems.$": {
-                //                 ...req.body.cartItems,
-                //                 quantity: item.quantity + req.body.cartItems.quantity
-                //             }
-                //         }
-                //     }
-
-                // }
-                // else {
-                //     condition = { "user": req.user._id };
-                //     update = {
-                //         "$push": {
-                //             "cartItems": req.body.cartItems
-                //         }
-                //     }
-                //     Cart.findOneAndUpdate(condition, update)
-                //         .exec(function (err, _cart) {
-                //             if (err) {
-                //                 return res.status(400).json({
-                //                     message: "Error adding item to cart",
-                //                     error: err
-                //                 })
-                //             }
-                //             if (_cart) {
-                //                 return res.status(201).json({
-                //                     message: "Item added to cart",
-                //                     cart: _cart
-                //                 })
-                //             }
-                //         })
-                // }
-
             }
             else {
                 //if cart doesnot exists then create a new cart
