@@ -3,7 +3,7 @@ const UserModel = require('../models/user-model');
 const jwt = require('jsonwebtoken');
 
  
-const signUp = function(req, res, next) {
+const signUp = function(req, res) {
     UserModel.findOne({email: req.body.email})
         .exec(function(err, user) {
             if(user) return res.status(400).json({
@@ -44,7 +44,7 @@ const signUp = function(req, res, next) {
 }
 
 
-const signIn = function(req, res, next) {
+const signIn = function(req, res) {
     UserModel.findOne({email: req.body.email})
         .exec(function(err, user) {
             if(err) return res.status(400).json({err});
@@ -88,15 +88,7 @@ const signIn = function(req, res, next) {
         })
 }
 
-//this is dashboard, displayed when login is sucessfull
-const profile = function(req, res, next) {
-    console.log(req.user);
-}
-
-
-
 module.exports = {
     signIn,
-    signUp,
-    profile
+    signUp
 }

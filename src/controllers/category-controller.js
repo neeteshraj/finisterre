@@ -1,46 +1,55 @@
 const express = require('express');
 const CategoryModel = require('../models/category-model');
 const slugify = require('slugify');
+const shortid = require('shortid');
 
 
 function createCategories(categories, parentId = null) {
     const categoryList = [];
     let category;
-    if(parentId==null) {
+    if (parentId == null) {
         category = categories.filter(cat => cat.parentId == undefined);
     }
     else {
-        category = categories.filter(cat=>cat.parentId == parentId);
+        category = categories.filter(cat => cat.parentId == parentId);
     }
-    for(let cate of category){
+    for (let cate of category) {
         categoryList.push({
             _id: cate._id,
             name: cate.name,
             slug: cate.slug,
-            children: createCategories(categories, cate._id)
+            parentId: cate.parentId,
+            type: cate.type,
+            children: createCategories(categories, cate._id),
         })
     }
     return categoryList;
 }
 
-const createCategory = function(req, res, next) {
+const createCategory = function (req, res) {
+    
     const categoryObj = {
         name: req.body.name,
-        slug: slugify(req.body.name, {lower: true})
+        slug: `${slugify(req.body.name)}-${shortid.generate()}`,
+        createdBy: req.user._id,
+    };
+
+    if(req.file){
+        categoryObj.categoryImages = process.env.API + '/src/uploads/category/' + req.file.filename;
     }
-    if(req.body.parentId){
-        categoryObj.parentId=req.body.parentId;
+    if (req.body.parentId) {
+        categoryObj.parentId = req.body.parentId;
     }
 
     const category = new CategoryModel(categoryObj);
-    category.save(function(err, category) {
-        if(err) {
+    category.save(function (err, category) {
+        if (err) {
             return res.status(500).json({
                 message: 'Error when creating category',
                 error: err
             })
         }
-        if(category){
+        if (category) {
             return res.status(200).json({
                 message: 'Category created successfully',
                 category: category
@@ -49,16 +58,16 @@ const createCategory = function(req, res, next) {
     })
 }
 
-const getCategory = function(req, res, next) {
+const getCategory = function (req, res, next) {
     CategoryModel.find({})
-        .exec(function(err, categories){
-            if(err){
+        .exec(function (err, categories) {
+            if (err) {
                 return res.status(500).json({
                     message: 'Error when getting categories',
                     error: err
                 })
             }
-            if(categories){
+            if (categories) {
 
                 const categoryList = createCategories(categories);
 

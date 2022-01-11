@@ -13,6 +13,16 @@ const categorySchema = new mongoose.Schema({
     },
     parentId:{
         type: String
+    },
+    categoryImages:{
+        type: String
+    },
+    type:{
+        type: String
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 },{timestamps: true});
 
