@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 
 
@@ -23,8 +24,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/src/uploads/category',express.static(path.join(__dirname,'/src/uploads/category')));
+console.log(__dirname);
 
+
+app.use(cors());
 //routers mounting point
 app.use('/',api_routes);
 

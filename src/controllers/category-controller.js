@@ -27,20 +27,16 @@ function createCategories(categories, parentId = null) {
 }
 
 const createCategory = function (req, res) {
+    
     const categoryObj = {
         name: req.body.name,
         slug: `${slugify(req.body.name)}-${shortid.generate()}`,
-        createdBy: req.user._id
+        createdBy: req.user._id,
     };
 
-    let categoryImages = [];
-
-    if(req.files) {
-        categoryImages = req.file.map(file=>{
-            return { img: file.filename};
-        });
+    if(req.file){
+        categoryObj.categoryImages = process.env.API + '/src/uploads/category/' + req.file.filename;
     }
-
     if (req.body.parentId) {
         categoryObj.parentId = req.body.parentId;
     }

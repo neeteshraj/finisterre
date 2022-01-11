@@ -12,10 +12,17 @@ const categorySchema = new mongoose.Schema({
         unique: true
     },
     parentId:{
-        type: mongoose.Schema.Types.ObjectId
+        type: String
     },
     categoryImages:{
         type: String
+    },
+    type:{
+        type: String
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 },{timestamps: true});
 
