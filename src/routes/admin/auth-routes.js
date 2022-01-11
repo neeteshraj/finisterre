@@ -4,8 +4,11 @@ const router = express.Router();
 
 const {
     signIn,
-    signUp
+    signUp,
+    signOut
 } = require('../../controllers/admin/auth-controller');
+
+const { requireSignIn } = require('../../middlewares/requireSignIn/requireSignIn');
 
 const {
     validateSignUp,
@@ -19,6 +22,7 @@ const {
 
 router.post('/signin',validateSignIn,userValidation, signIn);
 router.post('/signup',validateSignUp, userValidation, signUp);
+router.post('/signout', requireSignIn, signOut);
 
 
 
