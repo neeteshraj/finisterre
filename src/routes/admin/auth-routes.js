@@ -22,7 +22,7 @@ const {
 
 router.post('/signin',validateSignIn,userValidation, signIn);
 router.post('/signup',validateSignUp, userValidation, signUp);
-router.post('/signout', requireSignIn, signOut);
+router.post('/signout', signOut);
 
 
 
