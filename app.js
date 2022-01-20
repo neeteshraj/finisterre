@@ -29,6 +29,7 @@ console.log(__dirname);
 
 
 app.use(cors());
+console.log("CORS enabled web server listening!!");
 //routers mounting point
 app.use('/',api_routes);
 
