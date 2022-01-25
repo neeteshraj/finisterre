@@ -33,7 +33,7 @@ const createCategory = function (req, res) {
         slug: `${slugify(req.body.name)}-${shortid.generate()}`,
         createdBy: req.user._id,
     };
-
+    console.log(req.file);
     if(req.file){
         categoryObj.categoryImages = process.env.API + '/src/uploads/category/' + req.file.filename;
     }

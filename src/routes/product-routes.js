@@ -7,7 +7,7 @@ const upload = require('../middlewares/uploader/productImageUploader/uploader');
 
 const{
     createProduct,
-    getProduct
+    getProductBySlug
 }= require('../controllers/product-controller');
 const { 
     requireSignIn, 
@@ -17,7 +17,7 @@ const {
 
 
 router.post('/createproduct',requireSignIn,adminMiddleware, upload.array('productPictures'), createProduct);
-router.get('/getproduct',getProduct);
+router.get('/:slug',getProductBySlug);
 
 
 module.exports = router;

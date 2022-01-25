@@ -29,6 +29,7 @@ async function initialData(req,res){
     const categories = await CategoryModel.find({}).exec();
     const products = await ProductsModel.find({})
         .select('_id name price quantity slug description productPictures category')
+        .populate({path:'category', select:'_id name'})
         .exec();
     res.status(200).json({
         categories: createCategories(categories),
