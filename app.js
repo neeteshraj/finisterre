@@ -15,6 +15,8 @@ var api_routes = require('./src/routes/index')
 var app = express();
 
 
+app.use(cors());
+console.log("CORS enabled web server listening!!");
 require('./src/config/dt_init');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,12 +26,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/src/uploads/category',express.static(path.join(__dirname,'/src/uploads/category')));
-console.log(__dirname);
+app.use("/public",express.static(path.join(__dirname,"/public/uploads")));
+// console.log(__dirname);
 
 
-app.use(cors());
-console.log("CORS enabled web server listening!!");
 //routers mounting point
 app.use('/',api_routes);
 
