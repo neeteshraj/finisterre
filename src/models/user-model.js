@@ -65,16 +65,16 @@ userSchema.virtual('fullName')
         return `${this.firstName} ${this.lastName}`;
     })
 
-userSchema.virtual('password')
-    .set(function(password){
-        this.hash_password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-    })
+// userSchema.virtual('password')
+//     .set(function(password){
+//         this.hash_password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+//     })
 
-userSchema.methods ={
-    authenticate: function(password){
-        return bcrypt.compareSync(password, this.hash_password);
-    }
-}
+userSchema.methods = {
+    authenticate: async function (password) {
+      return await bcrypt.compare(password, this.hash_password);
+    },
+  };
 
 const User = mongoose.model('User', userSchema);
 

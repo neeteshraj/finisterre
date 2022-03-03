@@ -4,41 +4,39 @@ const jwt = require('jsonwebtoken');
 
  
 const signUp = function(req, res) {
-    UserModel.findOne({email: req.body.email})
-        .exec(function(err, user) {
-            if(user) return res.status(400).json({
-                message: "User already exists"
-            })
-        })
-    const {
-        email,
-        password,
-        firstName,
-        lastName
-    } = req.body;
-
-    const user = new UserModel({
-        username: Math.random().toString(),
-        email,
-        password,
-        firstName,
-        lastName
-    });
-
-    user.save(function(err, data) {
-        if(err){
+    User.findOne({ email: req.body.email }).exec(async (error, user) => {
+        if (user)
+          return res.status(400).json({
+            error: "User already registered",
+          });
+    
+        const { firstName, lastName, email, password } = req.body;
+        const hash_password = await bcrypt.hash(password, 10);
+        const _user = new UserModel({
+          firstName,
+          lastName,
+          email,
+          hash_password,
+          username: shortid.generate(),
+        });
+    
+        _user.save((error, user) => {
+          if (error) {
             return res.status(400).json({
-                message: "Something went wrong",
-                err
+              message: "Something went wrong",
             });
-        }
-
-        if(data){
-            return res.status(200).json({
-                message: "User created successfully"
+          }
+    
+          if (user) {
+            const token = generateJwtToken(user._id, user.role);
+            const { _id, firstName, lastName, email, role, fullName } = user;
+            return res.status(201).json({
+              token,
+              user: { _id, firstName, lastName, email, role, fullName },
             });
-        }
-    })
+          }
+        });
+      });
 
     // console.log(user);
 }

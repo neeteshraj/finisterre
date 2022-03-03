@@ -36,9 +36,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
     },
     productPictures:[
-        {img:{
-            type: String
-        }}
+        {img:{ type: String }}
     ],
     reviews:[
         {

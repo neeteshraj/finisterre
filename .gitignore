@@ -1,3 +1,7 @@
 node_modules/
 .env
 src/uploads/
+/.vscode
+/.idea
+.DS_Store
+public/.DS_Store
